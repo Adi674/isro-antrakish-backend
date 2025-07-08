@@ -9,10 +9,16 @@ load_dotenv()
 
 app = FastAPI()
 
+# Allow this frontend origin
+origins = [
+    "https://gangayaan.vercel.app"
+]
+
+
 # CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace with your frontend URL if needed
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
