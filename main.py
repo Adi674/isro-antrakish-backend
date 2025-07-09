@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import httpx
 import os
 from utils.prompt import SYSTEM_PROMPT
+from fastapi.responses import JSONResponse
 
 load_dotenv()
 
@@ -26,6 +27,11 @@ app.add_middleware(
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+
+
+@app.get("/health", tags=["Health"])
+async def health_check():
+    return JSONResponse(content={"status": "ok", "message": "API is healthy"})
 
 @app.post("/chat")
 async def chat(request: Request):
